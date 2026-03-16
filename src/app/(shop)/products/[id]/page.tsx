@@ -139,6 +139,7 @@ export default async function ProductDetailPage({ params }: Props) {
                     {/* 상품 이미지 */}
                     <div className="relative aspect-[3/4] bg-gray-100 overflow-hidden mb-3">
                       {mainImg ? (
+                        // eslint-disable-next-line @next/next/no-img-element
                         <img
                           src={mainImg.url}
                           alt={related.name}

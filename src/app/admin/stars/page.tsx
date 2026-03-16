@@ -27,6 +27,7 @@ export default function AdminStarsPage() {
   }, [])
 
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     fetchStars()
   }, [fetchStars])
 
