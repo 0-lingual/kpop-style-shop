@@ -13,7 +13,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: oven-sh/setup-bun@v2
-      - run: bun install --frozen-lockfile
+      - run: bun install
       - run: bun run lint
       - name: Slack 알림 - Lint
         if: always()
@@ -21,7 +21,8 @@ jobs:
         with:
           status: ${{ job.status }}
           text: "Lint ${{ job.status == 'success' && '✅ 통과' || '❌ 실패' }}"
-          webhook_url: ${{ secrets.SLACK_WEBHOOK_URL }}
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
 
   build:
     name: Build
@@ -36,7 +37,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: oven-sh/setup-bun@v2
-      - run: bun install --frozen-lockfile
+      - run: bun install
       - run: bun run build
       - name: Slack 알림 - Build
         if: always()
@@ -44,7 +45,8 @@ jobs:
         with:
           status: ${{ job.status }}
           text: "Build ${{ job.status == 'success' && '✅ 성공' || '❌ 실패' }}"
-          webhook_url: ${{ secrets.SLACK_WEBHOOK_URL }}
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
 
   notify-complete:
     name: 전체 완료 알림
@@ -60,5 +62,5 @@ jobs:
             CI 파이프라인 완료
             Lint: ${{ needs.lint.result == 'success' && '✅' || '❌' }} ${{ needs.lint.result }}
             Build: ${{ needs.build.result == 'success' && '✅' || '❌' }} ${{ needs.build.result }}
-            PR: ${{ github.event.pull_request.html_url || github.server_url }}//${{ github.repository }}/commit/${{ github.sha }}
-          webhook_url: ${{ secrets.SLACK_WEBHOOK_URL }}
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
