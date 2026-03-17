@@ -2,6 +2,7 @@ import Link from "next/link"
 import Image from "next/image"
 import { prisma } from "@/lib/db"
 import type { StarWithCount, ProductWithRelations } from "@/types"
+import HeroBanner from "@/components/layout/HeroBanner"
 
 export const dynamic = "force-dynamic"
 
@@ -34,31 +35,7 @@ export default async function Home() {
   return (
     <main>
       {/* 히어로 섹션 */}
-      <section className="bg-black text-white py-24 px-4">
-        <div className="max-w-7xl mx-auto">
-          <p className="text-sm tracking-[0.3em] text-gray-400 mb-4">K-POP · FASHION · CULTURE</p>
-          <h1 className="font-serif italic text-5xl md:text-7xl font-bold leading-tight mb-6 max-w-2xl">
-            Dress Like Your Fave K-Pop Stars
-          </h1>
-          <p className="text-lg text-gray-300 mb-10 max-w-xl">
-            Discover outfits worn by BTS, BLACKPINK &amp; more
-          </p>
-          <div className="flex flex-wrap gap-4">
-            <Link
-              href="/products"
-              className="bg-white text-black px-8 py-3 font-medium hover:bg-gray-100 transition-colors"
-            >
-              Browse Products
-            </Link>
-            <Link
-              href="/stars"
-              className="border border-white text-white px-8 py-3 font-medium hover:bg-white hover:text-black transition-colors"
-            >
-              Explore Groups
-            </Link>
-          </div>
-        </div>
-      </section>
+      <HeroBanner />
 
       {/* Featured Groups 섹션 */}
       <section className="py-16 px-4">
